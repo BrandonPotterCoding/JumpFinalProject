@@ -18,12 +18,12 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	
 	Optional<Review> findById(long id);
 	
-	@Query("SELECT r FROM Review r WHERE r.restaurant_id = ?1")
-	List<Review> reviewsForRestuarant(@Param(value="restaurant_id") long id);
+	@Query("SELECT r FROM Review r WHERE r.restaurant.id = :restaurant_id")
+	List<Review> reviewsForRestuarant(@Param(value="restaurant_id") Long id);
 	
 	@Transactional
 	@Modifying
-	@Query("DELETE FROM Review r WHERE r.id = ?1")
-	public void deleteReview(@Param(value="id") long id);
+	@Query("DELETE FROM Review r WHERE r.id = :id")
+	public void deleteReview(@Param(value="id") Long id);
 
 }

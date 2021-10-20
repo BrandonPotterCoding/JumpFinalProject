@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.exception.UserAlreadyExistsException;
@@ -11,6 +12,7 @@ import com.cognixia.jump.model.AuthenticationRequest;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.UserRepository;
 
+@Service
 public class UserService {
 
 	@Autowired

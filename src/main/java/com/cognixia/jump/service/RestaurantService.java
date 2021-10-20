@@ -10,12 +10,16 @@ import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
 import com.cognixia.jump.repository.RestaurantRepository;
+import com.cognixia.jump.repository.UserRepository;
 
 @Service
 public class RestaurantService {
 
 	@Autowired
 	RestaurantRepository repo;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	
 	// ***** Get Restaurant By Id *****
