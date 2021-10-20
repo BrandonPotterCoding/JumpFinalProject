@@ -41,9 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.csrf().disable()
 			.authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/api/add/restaurant").hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/restaurant/delete/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.PATCH, "/api/restaurant/update/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/remove/user/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/delete/review/*").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/api/user").hasRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/user/current").authenticated()
-			.antMatchers("/**").permitAll()
-			.anyRequest().authenticated()
+			.antMatchers(HttpMethod.POST, "/api/add/review/*").authenticated()
+//			.antMatchers("/**").permitAll()
+//			.anyRequest().authenticated()
+			.anyRequest().permitAll()
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
