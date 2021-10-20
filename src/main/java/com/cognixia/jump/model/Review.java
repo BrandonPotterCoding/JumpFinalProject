@@ -58,16 +58,8 @@ public class Review implements Serializable{
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Restaurant getRestaurant() {
-		return restaurant;
 	}
 
 	public void setRestaurant(Restaurant restaurant) {

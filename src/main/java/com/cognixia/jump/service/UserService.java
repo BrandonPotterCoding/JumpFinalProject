@@ -37,8 +37,7 @@ public class UserService {
 		}
 		
 		registeringNewUser.setPassword(passwordEncoder.encode(registeringNewUser.getPassword()));
-		userRepository.save(registeringNewUser);
-		return registeringNewUser;
+		return userRepository.save(registeringNewUser);
 		
 	}
 

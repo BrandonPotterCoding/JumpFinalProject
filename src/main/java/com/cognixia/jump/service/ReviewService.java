@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognixia.jump.exception.ResourceNotFoundException;
+import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.RestaurantRepository;
@@ -31,17 +32,20 @@ public class ReviewService {
 	@Autowired
 	JwtUtil jwtUtil;
 	
-	public Review createNewReview(Review review, HttpServletRequest req) {
+	public Review createNewReview(Review review, HttpServletRequest req, long restId) {
 		// unsure about where to find restaurant information, could it be a part of the header?
 		String jwt = req.getHeader("Authorization").substring(7);
 		String username = jwtUtil.extractUsername(jwt);
+		
+		Restaurant rest = restaurantRepo.getById(restId);
+		review.setRestaurant(rest);
 		
 		User user = userRepo.findByUsername(username).get();
 		review.setId(-1L);
 		review.setUser(user);
 		
-//		Review saved = reviewRepo.save(review);
-		return review;
+		return reviewRepo.save(review);
+		
 	}
 	
 	public List<Review> findByUserId(HttpServletRequest req) {

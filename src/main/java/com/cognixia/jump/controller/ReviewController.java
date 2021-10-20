@@ -54,12 +54,10 @@ public class ReviewController {
 	}
 	
 	// add a new review for a restaurant
-	@PostMapping("/{id}/add/review")
+	@PostMapping("/add/review/{restId}")
 	public ResponseEntity<?> addReview(@PathVariable long restId, @RequestBody Review review, HttpServletRequest req) {
-		Review added = reviewService.createNewReview(review, req);
-		Restaurant rest = restaurantRepo.getById(restId);
-		added.setRestaurant(rest);
-		reviewRepo.save(added);
+		Review added = reviewService.createNewReview(review, req, restId);
+		
 		return ResponseEntity.status(201).body(added);
 	}
 	
