@@ -102,9 +102,9 @@ public class RestaurantService {
 					
 				default: // Restaurant detail does not exist
 					throw new ResourceNotFoundException("Detail of Restaurant");
-			}
+			}			
 			
-			return toUpdate;
+			return repo.save(toUpdate);
 		}
 	
 		throw new ResourceNotFoundException("Restaurant", id);
