@@ -9,9 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,8 +21,8 @@ public class Restaurant implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	@Column(nullable = false)
 	private String name;
@@ -41,7 +40,7 @@ public class Restaurant implements Serializable{
 		this(-1L, "NA", "NA", "NA", new ArrayList<>());
 	}
 
-	public Restaurant(long id, String name, String address, String description, List<Review> reviews) {
+	public Restaurant(Long id, String name, String address, String description, List<Review> reviews) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,11 +49,11 @@ public class Restaurant implements Serializable{
 		this.reviews = reviews;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
