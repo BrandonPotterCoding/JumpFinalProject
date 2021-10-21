@@ -14,9 +14,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 	@Query("SELECT r FROM Restaurant r WHERE r.name = ?1")
 	List<Restaurant> findRestaurantsByName(String name);
 	
-//	Restaurant findRestaurantByName(String name);
-
-	@Query("SELECT r FROM Restaurant r WHERE r.name LIKE ?1%")
-	List<Restaurant> findRestaurantsByKeyword(String keyword);
+//	@Query(nativeQuery= true, value= "SELECT * FROM pleydb.restaurant WHERE name LIKE ?1;")
+//	List<Restaurant> findRestaurantsByKeyword(String keyword);
 	
 }
