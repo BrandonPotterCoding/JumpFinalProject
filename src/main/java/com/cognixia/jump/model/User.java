@@ -141,5 +141,17 @@ public class User implements Serializable{
 		this.reviews.add(review);
 		review.setUser(this);
 	}
+	public String toJson() {
+		
+		return "{\"id\" : " + id
+				+ ", \"username\" : \"" + username + "\""
+				+ ", \"password\" : \"" + password + "\""
+				+ ", \"displayname\" : \"" + displayname + "\""
+				+ ", \"role\" : \"" + role + "\""
+				+ ", \"email\" : \"" + email + "\""
+				+ ", \"enabled\" : \"" + enabled + "\""
+				+ ", \"reviews\" : \"" + reviews + "\"" +
+		"}";
+	}
 	
 }
