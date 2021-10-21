@@ -84,9 +84,9 @@ public class UserController {
 		throw new ResourceNotFoundException("User");
 	}
 	@DeleteMapping("/remove/user/{id}")
-	public ResponseEntity<?> removeUser(@PathVariable Long id) throws ResourceNotFoundException{
+	public User removeUser(@PathVariable Long id) throws ResourceNotFoundException{
 		User deleted = userService.deleteUser(id);
-		return ResponseEntity.status(200).body(deleted);
+		return deleted;
 	}
 	
 	@PostMapping("/authenticate")
