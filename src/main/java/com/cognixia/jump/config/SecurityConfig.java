@@ -39,7 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.csrf().disable()
+//		http.csrf().disable()
+		http.cors()
+			.and()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/add/restaurant").hasRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/api/restaurant/delete/**").hasRole("ADMIN")
@@ -58,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 			
 	}
+	
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
