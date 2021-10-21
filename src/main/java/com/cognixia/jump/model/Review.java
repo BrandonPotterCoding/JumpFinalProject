@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
+import com.cognixia.jump.exception.RatingOutOfBoundsException;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -37,17 +37,19 @@ public class Review implements Serializable{
 	@Column(nullable = false)
 	private String description;
 	
-	public Review() {
-		this(-1L, null, null, -1L, "NA");
+	public Review() throws RatingOutOfBoundsException {
+		this(-1L, null, null, 1L, "NA");
 	}
 
-	public Review(Long id, User user, Restaurant restaurant, Long rating, String description) {
+	public Review(Long id, User user, Restaurant restaurant, Long rating, String description) throws RatingOutOfBoundsException {
 		super();
 		this.id = id;
 		this.user = user;
 		this.restaurant = restaurant;
-		this.rating = rating;
+		setRating(rating);
 		this.description = description;
+		
+//		if(rating <)
 	}
 
 	public Long getId() {
@@ -70,8 +72,11 @@ public class Review implements Serializable{
 		return rating;
 	}
 
-	public void setRating(Long rating) {
-		this.rating = rating;
+	public void setRating(Long rating) throws RatingOutOfBoundsException {
+		if ((rating >= 1) && (rating <= 5))
+			this.rating = rating;
+		else 
+			throw new RatingOutOfBoundsException();
 	}
 
 	public String getDescription() {

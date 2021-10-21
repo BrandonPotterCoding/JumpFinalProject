@@ -10,6 +10,7 @@ import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
 import com.cognixia.jump.repository.RestaurantRepository;
+import com.cognixia.jump.repository.ReviewRepository;
 import com.cognixia.jump.repository.UserRepository;
 
 @Service
@@ -19,8 +20,12 @@ public class RestaurantService {
 	RestaurantRepository repo;
 	
 	@Autowired
-	UserRepository userRepository;
+	ReviewRepository reviewRepo;
 	
+	@Autowired        
+	UserRepository userRepository;
+
+	private List<Review> topReviews;
 	
 	// ***** Get Restaurant By Id *****
 	public Restaurant getRestaurantById(long id) throws ResourceNotFoundException{
@@ -30,7 +35,7 @@ public class RestaurantService {
 		if(found == null) {
 			throw new ResourceNotFoundException("Restaurant", id);
 		}
-				
+				      
 		return found.get();
 	}
 	
@@ -110,5 +115,62 @@ public class RestaurantService {
 		throw new ResourceNotFoundException("Restaurant", id);
 		
 	}
+	
+	// ***** Get Restaurant By Name (Returns First Restaurant Found) ***** 
+	public Restaurant getRestaurantByName(String name) throws ResourceNotFoundException{
+		List<Restaurant> listOfRest = repo.findRestaurantsByName(name);
+		
+		if(listOfRest.isEmpty())
+			throw new ResourceNotFoundException("Restaurant");	
+		else 
+			return listOfRest.get(0);
+				
+	}
+	
+	// ***** Get Restaurants By Name *****
+	public List<Restaurant> getRestaurantsByName(String name) throws ResourceNotFoundException {
+		List<Restaurant> results = repo.findRestaurantsByName(name);
+		
+		if(results.isEmpty())
+			throw new ResourceNotFoundException("Restaurant");	
+		else 
+			return results;
+	}
+	
+	// ***** Get Restaurants By keyword *****
+	public List<Restaurant> getRestaurantsByKeyword(String keyword) throws ResourceNotFoundException{
+		List<Restaurant> results = repo.findRestaurantsByKeyword(keyword);
+		
+		if(results.isEmpty())
+			throw new ResourceNotFoundException("Restaurant");	
+		else 
+			return results;
+	}
+	
+	
+	// ***** Get Top 3 Reviews of Restaurant *****
+	public List<Review> getTopThreeReviews(long id){
+		List<Review> allReviews = reviewRepo.findReviewsDescending(id);
+		
+		if(allReviews.isEmpty()) {
+			//There are no reviews for this restaurant yet
+			return null;
+		}
+		else {
+			while(topReviews.size() != 3) {
+				
+				for(Review r: allReviews) 
+					topReviews.add(r);
+					
+				// restaurant may have less than 3 reviews 
+				break; 
+			}
+			
+			return topReviews;
+			
+		}
+		
+	}
+	
 	
 }

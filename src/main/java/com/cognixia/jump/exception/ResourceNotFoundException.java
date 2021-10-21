@@ -12,9 +12,9 @@ public class ResourceNotFoundException extends Exception {
 		
 		super(resource + " with id = " + id + " was not found");
 	}
-	public ResourceNotFoundException(String username) {
+	public ResourceNotFoundException(String resource) {
 		
-		super(username + " was not found");
+		super(resource+ " was not found");
 	}
-	
+
 }
