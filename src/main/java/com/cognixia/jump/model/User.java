@@ -52,7 +52,7 @@ public class User implements Serializable{
 	private List<Review> reviews;
 	
 	public User() {
-		this(-1L, "N/A", "N/A", false,Role.ROLE_USER, "NA", "NA", new ArrayList<>());
+		this(-1L, "N/A", "N/A", true, Role.ROLE_USER, "NA", "NA", new ArrayList<>());
 	}
 
 	public User(Long id, String username, String password, boolean enabled, Role role, String displayname, String email,
