@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognixia.jump.exception.RatingOutOfBoundsException;
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
@@ -55,7 +56,7 @@ public class ReviewController {
 	
 	// add a new review for a restaurant
 	@PostMapping("/add/review/{restId}")
-	public ResponseEntity<?> addReview(@PathVariable long restId, @RequestBody Review review, HttpServletRequest req) {
+	public ResponseEntity<?> addReview(@PathVariable long restId, @RequestBody Review review, HttpServletRequest req) throws RatingOutOfBoundsException {
 		Review added = reviewService.createNewReview(review, req, restId);
 		
 		return ResponseEntity.status(201).body(added);

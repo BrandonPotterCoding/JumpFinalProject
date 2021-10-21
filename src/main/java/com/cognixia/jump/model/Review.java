@@ -41,15 +41,14 @@ public class Review implements Serializable{
 		this(-1L, null, null, 1L, "NA");
 	}
 
-	public Review(Long id, User user, Restaurant restaurant, Long rating, String description) throws RatingOutOfBoundsException {
+	public Review(Long id, User user, Restaurant restaurant, Long rating, String description) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.restaurant = restaurant;
-		setRating(rating);
+		this.rating = rating;
 		this.description = description;
 		
-//		if(rating <)
 	}
 
 	public Long getId() {
@@ -72,11 +71,8 @@ public class Review implements Serializable{
 		return rating;
 	}
 
-	public void setRating(Long rating) throws RatingOutOfBoundsException {
-		if ((rating >= 1) && (rating <= 5))
-			this.rating = rating;
-		else 
-			throw new RatingOutOfBoundsException();
+	public void setRating(Long rating){
+		this.rating = rating;
 	}
 
 	public String getDescription() {
