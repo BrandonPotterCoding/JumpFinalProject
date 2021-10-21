@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cognixia.jump.exception.RatingOutOfBoundsException;
 import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
@@ -32,7 +33,7 @@ public class ReviewService {
 	@Autowired
 	JwtUtil jwtUtil;
 	
-	public Review createNewReview(Review review, HttpServletRequest req, long restId) {
+	public Review createNewReview(Review review, HttpServletRequest req, long restId) throws RatingOutOfBoundsException{
 		// unsure about where to find restaurant information, could it be a part of the header?
 		String jwt = req.getHeader("Authorization").substring(7);
 		String username = jwtUtil.extractUsername(jwt);
@@ -44,7 +45,11 @@ public class ReviewService {
 		review.setId(-1L);
 		review.setUser(user);
 		
-		return reviewRepo.save(review);
+		if( (review.getRating() > 1) && (review.getRating() < 5) )
+			return reviewRepo.save(review);
+		
+		else 
+			throw new RatingOutOfBoundsException();
 		
 	}
 	
