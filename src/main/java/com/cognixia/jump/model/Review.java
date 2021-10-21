@@ -46,7 +46,7 @@ public class Review implements Serializable{
 		this.id = id;
 		this.user = user;
 		this.restaurant = restaurant;
-		setRating(rating);
+		this.rating=rating;
 		this.description = description;
 		
 //		if(rating <)
@@ -73,10 +73,7 @@ public class Review implements Serializable{
 	}
 
 	public void setRating(Long rating) throws RatingOutOfBoundsException {
-		if ((rating >= 1) && (rating <= 5))
-			this.rating = rating;
-		else 
-			throw new RatingOutOfBoundsException();
+		this.rating=rating;
 	}
 
 	public String getDescription() {
