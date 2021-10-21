@@ -57,7 +57,7 @@ class ReviewControllerTest {
 	RestaurantRepository restaurantRepository;
 
 	@Test
-	void testGetAllReviews() {
+	void testGetAllReviews() throws Exception {
 		String uri = STARTING_URI + "reviews";
 		List<User> users = Arrays.asList(
 				new User(1L, "Brandon", "123456", true, Role.ROLE_USER, "BrandonDN", "Brandon@Email.com",
@@ -73,7 +73,7 @@ class ReviewControllerTest {
 		List<Review> reviews = Arrays.asList(
 				new Review(1L, users.get(0), restaurants.get(0), 5L,"Very good"),
 				new Review(2L,  users.get(1), restaurants.get(2), 5L,"Very good"),
-				new Review(3L,  users.get(1), restaurants.get(0), 5L,"Very good");
+				new Review(3L,  users.get(1), restaurants.get(0), 5L,"Very good"));
 		when(controller.getAllReviews()).thenReturn(reviews);
 
 		mvc.perform(get(uri)).andDo(print()).andExpect(status().isOk())
