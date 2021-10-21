@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +77,32 @@ public class RestaurantController {
 		Restaurant updated = service.updateRestaurant(id, detail, update);
 		
 		return new ResponseEntity<>(updated, HttpStatus.OK);
+	}
+	
+	// ***** Get Restaurant By Name (Assuming no duplicates) *****
+	@GetMapping("/restaurant")
+	public ResponseEntity<?> getRestaurantByName(@PathParam(value="search") String name) throws ResourceNotFoundException{
+		Restaurant searched = service.getRestaurantByName(name); 
+		
+		return new ResponseEntity<>(searched, HttpStatus.OK);
+	}
+	
+	// ***** Get Restaurants By Name *****
+	@GetMapping("/restaurants/name")
+	public List<Restaurant> getRestaurantsByName(@PathParam(value="search") String name) throws ResourceNotFoundException{
+		return service.getRestaurantsByName(name); 
+	}
+	
+	// ***** Get Restaurants By keyword *****
+	@GetMapping("/restaurants/keyword")
+	public List<Restaurant> getRestaurantsByKeyword(@PathParam(value="search") String keyword) throws ResourceNotFoundException{
+		return service.getRestaurantsByKeyword(keyword); 
+	}
+	
+	// ***** Get Top 3 Reviews of Restaurant *****
+	@GetMapping("/{id}/top3reviews")
+	public List<Review> getTopThreeReviews(@PathVariable long id){
+		return service.getTopThreeReviews(id); 
 	}
 	
 }

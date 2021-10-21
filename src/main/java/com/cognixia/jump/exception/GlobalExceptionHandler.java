@@ -35,6 +35,13 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
 	}
+	@ExceptionHandler(RatingOutOfBoundsException.class)
+	public ResponseEntity<?> invalidPasswordException(RatingOutOfBoundsException ex, WebRequest request) {
+		
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		
+		return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+	}
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> globalExceptionHandler(Exception ex, WebRequest request) {
 		
@@ -42,4 +49,5 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 }
