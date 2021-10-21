@@ -26,6 +26,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	@Query("DELETE FROM Review r WHERE r.id = :id")
 	public void deleteReview(@Param(value="id") Long id);
 
-	@Query("SELECT r FROM Review r WHERE r.restaurant.id= ?1 ORDER BY r.rating DESC")
-	List<Review> findReviewsDescending(Long restId);
+	@Query(nativeQuery= true, value="SELECT * FROM pleydb.review WHERE restaurant_id= ?1 ORDER BY rating DESC LIMIT 3;")
+	List<Review> findTopThreeReviews(Long restId);
+	
 }

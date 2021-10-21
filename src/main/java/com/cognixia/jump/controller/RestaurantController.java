@@ -80,24 +80,24 @@ public class RestaurantController {
 	}
 	
 	// ***** Get Restaurant By Name (Assuming no duplicates) *****
-	@GetMapping("/restaurant")
-	public ResponseEntity<?> getRestaurantByName(@PathParam(value="search") String name) throws ResourceNotFoundException{
+	@GetMapping("/restaurant/name/{name}")
+	public ResponseEntity<?> getRestaurantByName(@PathVariable String name) throws ResourceNotFoundException{
 		Restaurant searched = service.getRestaurantByName(name); 
 		
 		return new ResponseEntity<>(searched, HttpStatus.OK);
 	}
 	
 	// ***** Get Restaurants By Name *****
-	@GetMapping("/restaurants/name")
-	public List<Restaurant> getRestaurantsByName(@PathParam(value="search") String name) throws ResourceNotFoundException{
+	@GetMapping("/restaurants/name/{name}")
+	public List<Restaurant> getRestaurantsByName(@PathVariable String name) throws ResourceNotFoundException{
 		return service.getRestaurantsByName(name); 
 	}
 	
 	// ***** Get Restaurants By keyword *****
-	@GetMapping("/restaurants/keyword")
-	public List<Restaurant> getRestaurantsByKeyword(@PathParam(value="search") String keyword) throws ResourceNotFoundException{
-		return service.getRestaurantsByKeyword(keyword); 
-	}
+//	@GetMapping("/restaurants/keyword/{keyword}")
+//	public List<Restaurant> getRestaurantsByKeyword(@PathVariable String keyword) throws ResourceNotFoundException{
+//		return service.getRestaurantsByKeyword(keyword); 
+//	}
 	
 	// ***** Get Top 3 Reviews of Restaurant *****
 	@GetMapping("/{id}/top3reviews")

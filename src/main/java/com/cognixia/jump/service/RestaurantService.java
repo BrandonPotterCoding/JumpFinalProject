@@ -129,7 +129,7 @@ public class RestaurantService {
 	
 	// ***** Get Restaurants By Name *****
 	public List<Restaurant> getRestaurantsByName(String name) throws ResourceNotFoundException {
-		List<Restaurant> results = repo.findRestaurantsByName(name);
+		List<Restaurant> results = repo.findRestaurantsByName("%" + name + "%");
 		
 		if(results.isEmpty())
 			throw new ResourceNotFoundException("Restaurant");	
@@ -138,38 +138,19 @@ public class RestaurantService {
 	}
 	
 	// ***** Get Restaurants By keyword *****
-	public List<Restaurant> getRestaurantsByKeyword(String keyword) throws ResourceNotFoundException{
-		List<Restaurant> results = repo.findRestaurantsByKeyword(keyword);
-		
-		if(results.isEmpty())
-			throw new ResourceNotFoundException("Restaurant");	
-		else 
-			return results;
-	}
+//	public List<Restaurant> getRestaurantsByKeyword(String keyword) throws ResourceNotFoundException{
+//		List<Restaurant> results = repo.findRestaurantsByKeyword(keyword);
+//		
+//		if(results.isEmpty())
+//			throw new ResourceNotFoundException("Restaurant");	
+//		else 
+//			return results;
+//	}
 	
 	
 	// ***** Get Top 3 Reviews of Restaurant *****
 	public List<Review> getTopThreeReviews(long id){
-		List<Review> allReviews = reviewRepo.findReviewsDescending(id);
-		
-		if(allReviews.isEmpty()) {
-			//There are no reviews for this restaurant yet
-			return null;
-		}
-		else {
-			while(topReviews.size() != 3) {
-				
-				for(Review r: allReviews) 
-					topReviews.add(r);
-					
-				// restaurant may have less than 3 reviews 
-				break; 
-			}
-			
-			return topReviews;
-			
-		}
-		
+		return reviewRepo.findTopThreeReviews(id);
 	}
 	
 	
