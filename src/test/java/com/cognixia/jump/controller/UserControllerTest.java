@@ -126,6 +126,29 @@ class UserControllerTest {
 		verify(controller, times(1)).getUserById(id);
 		verifyNoMoreInteractions(controller);
 	}
+	
+	@Test
+	void testGetUserByUsername() throws Exception {
+		String username = "Brandon";
+		String uri = STARTING_URI + "user/username/{username}";
+		User user = new User(1L, username, "123456", true, Role.ROLE_USER, "BrandonDN", "Brandon@Email.com",
+				new ArrayList());
+
+		when(controller.getUserByUsername(username)).thenReturn(user);
+
+		mvc.perform(get(uri, username)).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.id").value(user.getId()))
+				.andExpect(jsonPath("$.username").value(user.getUsername()))
+				.andExpect(jsonPath("$.password").value(user.getPassword()))
+				.andExpect(jsonPath("$.enabled").value(user.isEnabled()))
+				.andExpect(jsonPath("$.reviews").value(user.getReviews()))
+				.andExpect(jsonPath("$.displayname").value(user.getDisplayname()))
+				.andExpect(jsonPath("$.email").value(user.getEmail()));
+
+		verify(controller, times(1)).getUserByUsername(username);
+		verifyNoMoreInteractions(controller);
+	}
 
 //	@Test
 //	void testAddUser() throws Exception {
