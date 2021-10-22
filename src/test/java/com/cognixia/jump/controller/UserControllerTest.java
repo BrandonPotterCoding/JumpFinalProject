@@ -107,7 +107,7 @@ class UserControllerTest {
 	@Test
 	void testGetUserById() throws Exception {
 		long id = 1;
-		String uri = STARTING_URI + "user/{id}";
+		String uri = STARTING_URI + "user/id/{id}";
 		User user = new User(1L, "Brandon", "123456", true, Role.ROLE_USER, "BrandonDN", "Brandon@Email.com",
 				new ArrayList());
 

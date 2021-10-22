@@ -58,12 +58,12 @@ public class UserController {
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
-	@GetMapping("/user/{id}")
+	@GetMapping("/user/id/{id}")
 	public User getUserById(@PathVariable Long id) throws ResourceNotFoundException {
 		return userService.getUserById(id);
 	}
-	@GetMapping("/user/{username}")
-	public User getUserById(@PathVariable String username) throws ResourceNotFoundException {
+	@GetMapping("/user/username/{username}")
+	public User getUserByUsername(@PathVariable String username) throws ResourceNotFoundException {
 		return userService.getUserByUsername(username);
 	}
 	@PostMapping("/add/user")
