@@ -31,7 +31,7 @@ public class SwaggerConfig {
 	
 	private ApiInfo apiDetails() {
 		return new ApiInfo(
-				"Todos Project API", 
+				"Final Project API", 
 				"Pley Jump Final Project", 
 				"2.0", 
 				"Free", 
