@@ -150,7 +150,7 @@ public class User implements Serializable{
 				+ ", \"role\" : \"" + role + "\""
 				+ ", \"email\" : \"" + email + "\""
 				+ ", \"enabled\" : \"" + enabled + "\""
-				+ ", \"reviews\" : \"" + reviews + "\"" +
+				+ ", \"reviews\" : " + reviews  +
 		"}";
 	}
 	

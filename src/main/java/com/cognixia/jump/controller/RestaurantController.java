@@ -49,11 +49,14 @@ public class RestaurantController {
 	
 	// ***** Add Restaurant *****
 	@PostMapping("/restaurant/add")
-	public ResponseEntity<?> addRestaurant(@RequestBody Restaurant restaurant){
-		Restaurant added = service.addRestaurant(restaurant); 
-		
-		return new ResponseEntity<>(added, HttpStatus.CREATED);	
-	}
+//	public ResponseEntity<?> addRestaurant(@RequestBody Restaurant restaurant){
+//		Restaurant added = service.addRestaurant(restaurant); 
+//		
+//		return new ResponseEntity<>(added, HttpStatus.CREATED);	
+//	}
+	public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant){
+        return ResponseEntity.status(201).body(service.addRestaurant(restaurant));
+    }
 	
 	// ***** Delete Restaurant *****
 	@DeleteMapping("/restaurant/delete/{id}")
