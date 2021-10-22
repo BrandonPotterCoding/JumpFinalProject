@@ -57,10 +57,10 @@ public class RestaurantController {
 	
 	// ***** Delete Restaurant *****
 	@DeleteMapping("/restaurant/delete/{id}")
-	public ResponseEntity<?> deleteRestaurant(@PathVariable long id) throws ResourceNotFoundException{
+	public Restaurant deleteRestaurant(@PathVariable long id) throws ResourceNotFoundException{
 		Restaurant deleted = service.deleteRestaurant(id); 
 		
-		return new ResponseEntity<>(deleted, HttpStatus.OK);
+		return deleted;
 	}
 	
 	// ***** Update Restaurant (Unspecified) *****
@@ -73,10 +73,10 @@ public class RestaurantController {
  	
 	// ***** Update Restaurant (Specified) *****
 	@PatchMapping("/restaurant/update/{id}/{detail}")
-	public ResponseEntity<?> updateRestaurant(@PathVariable long id, @PathVariable String detail, @PathParam(value="update") String update) throws ResourceNotFoundException{
+	public Restaurant updateRestaurant(@PathVariable long id, @PathVariable String detail, @PathParam(value="update") String update) throws ResourceNotFoundException{
 		Restaurant updated = service.updateRestaurant(id, detail, update);
 		
-		return new ResponseEntity<>(updated, HttpStatus.OK);
+		return updated;
 	}
 	
 	// ***** Get Restaurant By Name (Assuming no duplicates) *****

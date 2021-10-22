@@ -14,29 +14,30 @@ import com.cognixia.jump.exception.RatingOutOfBoundsException;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // make sure our data loads fast enough w/o getting error
-public class Review implements Serializable{
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) // make sure our data loads fast enough w/o getting
+																	// error
+public class Review implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id", referencedColumnName = "id")
 	private Restaurant restaurant;
-	
+
 	@Column(nullable = false)
 	private Long rating;
-	
+
 	@Column(nullable = false)
 	private String description;
-	
+
 	public Review() throws RatingOutOfBoundsException {
 		this(-1L, null, null, 1L, "NA");
 	}
@@ -48,7 +49,7 @@ public class Review implements Serializable{
 		this.restaurant = restaurant;
 		this.rating = rating;
 		this.description = description;
-		
+
 	}
 
 	public Long getId() {
@@ -71,7 +72,7 @@ public class Review implements Serializable{
 		return rating;
 	}
 
-	public void setRating(Long rating){
+	public void setRating(Long rating) {
 		this.rating = rating;
 	}
 
@@ -86,6 +87,11 @@ public class Review implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
+
+	public String toJson() {
+
+		return "{\"id\" : " + id + ", \"name\" : \"" + rating + "\"" + ", \"description\" : \"" + description + "\""
+				+ "}";
+	}
+
 }

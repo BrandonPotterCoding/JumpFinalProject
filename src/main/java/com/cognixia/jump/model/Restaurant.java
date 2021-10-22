@@ -97,5 +97,11 @@ public class Restaurant implements Serializable{
 		this.reviews.add(review);
 		review.setRestaurant(this);
 	}
+
+	public String toJson() {
+
+		return "{\"id\" : " + id + ", \"name\" : \"" + name + "\"" + ", \"address\" : \"" + address + "\""
+				+ ", \"description\" : \"" + description + "\"" + ", \"reviews\" : \"" + reviews + "\"" + "}";
+	}
 	
 }
