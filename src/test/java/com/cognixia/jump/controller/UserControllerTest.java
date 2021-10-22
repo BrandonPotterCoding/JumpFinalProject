@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -174,7 +175,7 @@ class UserControllerTest {
 		Long id = 3L;
 		when(controller.removeUser(id)).thenReturn(users.get(2));
 
-		mvc.perform(get(uri)).andDo(print()).andExpect(status().isOk())
+		mvc.perform(delete(uri)).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.length()").value(users.size()))
 				.andExpect(jsonPath("$.id").value(users.get(2).getId()))

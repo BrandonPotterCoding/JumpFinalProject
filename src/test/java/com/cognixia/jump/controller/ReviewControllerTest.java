@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -31,9 +32,7 @@ import com.cognixia.jump.model.User;
 import com.cognixia.jump.model.User.Role;
 import com.cognixia.jump.repository.RestaurantRepository;
 import com.cognixia.jump.repository.ReviewRepository;
-import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.ReviewService;
-import com.cognixia.jump.service.UserService;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ReviewController.class)
@@ -104,8 +103,31 @@ class ReviewControllerTest {
 	}
 
 	@Test
-	void testRemoveReview() {
-		fail("Not yet implemented");
+	void testRemoveReview() throws Exception {
+		String uri = STARTING_URI + "delete/review/{id}";
+		List<User> users = Arrays.asList(
+				new User(1L, "Brandon", "123456", true, Role.ROLE_USER, "BrandonDN", "Brandon@Email.com",
+						new ArrayList()),
+				new User(2L, "Chris", "654321", true, Role.ROLE_USER, "ChrisDN", "Chris@Email.com", new ArrayList()),
+				new User(3L, "Debbie", "1qaz2wsx", true, Role.ROLE_USER, "DebbieDN", "Debbie@Email.com",
+						new ArrayList()));
+		List<Restaurant> restaurants = Arrays.asList(
+				new Restaurant(1L, "Wendys", "12345 Apple Street","Fast food", new ArrayList()),
+				new Restaurant(2L, "Chik-fila", "54321 Orange Street","Fast food", new ArrayList()),
+				new Restaurant(3L, "McDonalds", "91823 Banana Street", "Fast food", new ArrayList()));
+		
+		List<Review> reviews = Arrays.asList(
+				new Review(1L, users.get(0), restaurants.get(0), 5L,"Very good"),
+				new Review(2L,  users.get(1), restaurants.get(2), 5L,"Very good"),
+				new Review(3L,  users.get(1), restaurants.get(0), 5L,"Very good"));
+		Long id = 3L;
+		when(controller.removeReview(id)).thenReturn(reviews.get(2));
+		
+		mvc.perform(delete(uri,id)).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.id").value(reviews.get(2).getId()))
+		.andExpect(jsonPath("$.description").value(reviews.get(2).getDescription()))
+		.andExpect(jsonPath("$.rating").value(reviews.get(2).getRating()));
 	}
 
 }
