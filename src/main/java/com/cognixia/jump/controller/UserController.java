@@ -62,6 +62,10 @@ public class UserController {
 	public User getUserById(@PathVariable Long id) throws ResourceNotFoundException {
 		return userService.getUserById(id);
 	}
+	@GetMapping("/user/{username}")
+	public User getUserById(@PathVariable String username) throws ResourceNotFoundException {
+		return userService.getUserByUsername(username);
+	}
 	@PostMapping("/add/user")
 	public ResponseEntity<?> addUser(@RequestBody User user) throws Exception{
 		User created = userService.createNewUser(user);
