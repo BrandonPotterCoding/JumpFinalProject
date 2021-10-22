@@ -9,12 +9,18 @@ public class ResourceNotFoundException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public ResourceNotFoundException(String resource, Long id) {
-		
+
 		super(resource + " with id = " + id + " was not found");
 	}
+
+	public ResourceNotFoundException(String resource, String username) {
+
+		super(resource + " with username = " + username + " was not found");
+	}
+
 	public ResourceNotFoundException(String resource) {
-		
-		super(resource+ " was not found");
+
+		super(resource + " was not found");
 	}
 
 }

@@ -28,6 +28,13 @@ public class UserService {
 			return found.get();
 		throw new ResourceNotFoundException("User",id);
 	}
+	public User getUserByUsername(String username) throws ResourceNotFoundException {
+		Optional<User> found = userRepository.findByUsername(username);
+		
+		if(found.isPresent())
+			return found.get();
+		throw new ResourceNotFoundException("User",username);
+	}
 	
 	public User createNewUser(User registeringNewUser) throws Exception{
 		Optional<User> isAlreadyRegistered = userRepository.findByUsername(registeringNewUser.getUsername());
