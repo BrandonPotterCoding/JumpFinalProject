@@ -100,8 +100,11 @@ public class Restaurant implements Serializable{
 
 	public String toJson() {
 
-		return "{\"id\" : " + id + ", \"name\" : \"" + name + "\"" + ", \"address\" : \"" + address + "\""
-				+ ", \"description\" : \"" + description + "\"" + ", \"reviews\" : \"" + reviews + "\"" + "}";
+		return "{\"id\" : " + id + 
+				", \"name\" : \"" + name + "\"" + 
+				", \"address\" : \"" + address + "\"" + 
+				", \"description\" : \"" + description + "\"" + 
+				", \"reviews\" : " + reviews + "}";
 	}
 	
 }
