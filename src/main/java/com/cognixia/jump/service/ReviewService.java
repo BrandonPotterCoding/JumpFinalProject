@@ -45,7 +45,7 @@ public class ReviewService {
 		review.setId(-1L);
 		review.setUser(user);
 		
-		if( (review.getRating() > 1) && (review.getRating() < 5) )
+		if( (review.getRating() >= 1) && (review.getRating() <= 5) )
 			return reviewRepo.save(review);
 		
 		else 
