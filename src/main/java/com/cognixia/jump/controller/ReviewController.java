@@ -25,7 +25,7 @@ import com.cognixia.jump.repository.ReviewRepository;
 import com.cognixia.jump.service.ReviewService;
 import com.cognixia.jump.util.JwtUtil;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://pley-app-frontend.s3-website.us-east-2.amazonaws.com/")
 @RestController
 @RequestMapping("/api")
 public class ReviewController {

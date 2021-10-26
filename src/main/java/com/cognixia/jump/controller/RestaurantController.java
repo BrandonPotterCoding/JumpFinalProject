@@ -23,7 +23,7 @@ import com.cognixia.jump.model.Restaurant;
 import com.cognixia.jump.model.Review;
 import com.cognixia.jump.service.RestaurantService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://pley-app-frontend.s3-website.us-east-2.amazonaws.com/")
 @RestController
 @RequestMapping("/api")
 public class RestaurantController {
